@@ -1,0 +1,9 @@
+#! /usr/bin/env ruby
+
+require "cmenezes_palindrome"
+
+palindromes = File.readlines("phrases.txt").select { |p| p.palindrome? }
+
+palindromes.each { |p| puts "Palindrome Detected: #{p}" }
+
+File.write("palindromes_file.txt", palindromes.join)
