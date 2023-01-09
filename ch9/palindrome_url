@@ -1,0 +1,14 @@
+#! /usr/bin/env ruby
+
+require "cmenezes_palindrome"
+require "open-uri"
+
+palindromes =
+  URI
+    .open("https://cdn.learnenough.com/phrases.txt")
+    .readlines
+    .select { |p| p.palindrome? }
+
+palindromes.each { |p| puts "Palindrome Detected: #{p}" }
+
+File.write("palindromes_url.txt", palindromes.join)
