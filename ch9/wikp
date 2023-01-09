@@ -1,0 +1,23 @@
+#! /usr/bin/env ruby
+
+require "open-uri"
+require "nokogiri"
+
+# html = '<p>lorem<sup class="reference">1</sup></p><p>ipsum</p>'
+
+# Returns the paragraphs from a Wikipedia Link, stripped of references
+# Especially useful for text-to-speech
+
+url = ARGV[0]
+
+if url.nil?
+  puts "Please Enter A URL"
+  exit
+end
+
+doc = Nokogiri.HTML(URI.open(url).read)
+
+doc.css(".reference").each { |r| r.remove }
+
+content_array = doc.css("p").map { |p| p.content }
+puts content_array.join("\n")
